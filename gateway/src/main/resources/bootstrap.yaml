@@ -1,0 +1,20 @@
+
+spring:
+  application:
+    name: cloud-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.gitcui.cn:8848
+        group: GoldConfig
+        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
+      config:
+        prefix: Gateway
+        server-addr: nacos.gitcui.cn:8848
+        file-extension: yaml
+        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
+        group: GoldConfig
+server:
+  port: 8041
