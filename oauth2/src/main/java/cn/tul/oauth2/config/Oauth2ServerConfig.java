@@ -1,5 +1,6 @@
 package cn.tul.oauth2.config;
 
+import cn.tul.oauth2.security.JwtTokenEnhancer;
 import cn.tul.oauth2.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -79,8 +80,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public KeyPair keyPair() {
         //从classpath下的证书中获取秘钥对
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "cuijing".toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", "cuijing".toCharArray());
     }
 
 }

@@ -1,7 +1,11 @@
-package cn.tul.oauth2.config;/**
+package cn.tul.oauth2.config;
+
+/**
  * <br>
- * @className WebSecurityConfig
+ *
  * @author cuijing
+ * @className WebSecurityConfig
  * @date 2021-03-15 01:26
- */public class WebSecurityConfig {
+ */
+public class WebSecurityConfig {
 }

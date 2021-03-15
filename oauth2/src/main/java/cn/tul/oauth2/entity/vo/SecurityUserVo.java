@@ -1,7 +1,7 @@
 package cn.tul.oauth2.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.BeanUtils;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +18,17 @@ import java.util.Objects;
  * @className SecurityUserVo
  * @date 2021-03-14 16:42
  */
+@Data
 public class SecurityUserVo implements UserDetails {
 
-    public SecurityUserVo(UserVo user) {
-        if (user != null) {
-            BeanUtils.copyProperties(user, this);
+    public SecurityUserVo(UserVo userDTO) {
+        this.setId(userDTO.getId());
+        this.setUsername(userDTO.getUsername());
+        this.setPassword(userDTO.getPassword());
+        this.setEnabled(userDTO.getStatus() == 1);
+        if (userDTO.getRoles() != null) {
+            authorities = new ArrayList<SimpleGrantedAuthority>();
+            userDTO.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
         }
     }
 
@@ -44,7 +50,9 @@ public class SecurityUserVo implements UserDetails {
      */
     private String id;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private boolean enabled;
+
+    private Collection<SimpleGrantedAuthority> authorities;
 
     @Override
     public boolean equals(Object o) {

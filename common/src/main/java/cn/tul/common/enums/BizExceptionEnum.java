@@ -11,6 +11,14 @@ package cn.tul.common.enums;
 public enum BizExceptionEnum implements ServiceExceptionEnum {
 
     /**
+     * 操作失败
+     */
+    FAILED(500, "操作失败"),
+    /**
+     * 参数检验失败
+     */
+    VALIDATE_FAILED(404, "参数检验失败"),
+    /**
      * 数据请求格式失败
      */
     BODY_NOT_MATCH(400, "数据请求格式失败"),

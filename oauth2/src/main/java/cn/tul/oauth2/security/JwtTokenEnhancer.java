@@ -1,4 +1,4 @@
-package cn.tul.oauth2.config;
+package cn.tul.oauth2.security;
 
 import cn.tul.oauth2.entity.vo.SecurityUserVo;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

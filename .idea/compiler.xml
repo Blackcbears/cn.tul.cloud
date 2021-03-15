@@ -6,12 +6,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cn-tul-cloud-common" />
         <module name="gateway" />
+        <module name="cn-tul-oauth2-auth" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cn-tul-cloud-common" target="1.8" />
+      <module name="cn-tul-oauth2-auth" target="1.8" />
       <module name="cn.tul.cloud" target="1.8" />
-      <module name="gateway" target="1.5" />
+      <module name="cn.tul.cloud (1)" target="1.8" />
+      <module name="gateway" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cn-tul-cloud-common" options="-parameters" />
+      <module name="cn-tul-oauth2-auth" options="-parameters" />
+      <module name="cn.tul.cloud (1)" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+    </option>
   </component>
 </project>

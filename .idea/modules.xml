@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/common/cn-tul-cloud-common.iml" filepath="$PROJECT_DIR$/common/cn-tul-cloud-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oauth2/cn-tul-oauth2-auth.iml" filepath="$PROJECT_DIR$/oauth2/cn-tul-oauth2-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/cn.tul.cloud.iml" filepath="$PROJECT_DIR$/cn.tul.cloud.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
     </modules>

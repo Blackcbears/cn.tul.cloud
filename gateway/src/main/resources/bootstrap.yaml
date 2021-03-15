@@ -16,5 +16,6 @@ spring:
         file-extension: yaml
         namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
         group: GoldConfig
+
 server:
   port: 8041

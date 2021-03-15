@@ -1,1 +1,19 @@
 
+server:
+  port: 9401
+spring:
+  profiles:
+    active: dev
+  application:
+    name: tul-oauth2-auth
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.gitcui.cn:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*

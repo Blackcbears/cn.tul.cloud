@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserDetailsService {
     public void initData() {
         String password = passwordEncoder.encode("123456");
         userList = new ArrayList<>();
-        userList.add(new UserVo());
-        userList.add(new UserVo());
+        userList.add(new UserVo("3368ec76acfe4488996d62c0a8095961","macro", password,1, CollUtil.toList("ADMIN")));
+        userList.add(new UserVo("c8c863b4d39f4275ac4e6eb6aad3e402","andy", password,1, CollUtil.toList("TEST")));
     }
 
     @Override
