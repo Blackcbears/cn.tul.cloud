@@ -1,5 +1,15 @@
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:9401/rsa/publicKey' #配置RSA的公钥访问地址
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password:
   application:
     name: cloud-gateway
   profiles:
@@ -16,6 +26,14 @@ spring:
         file-extension: yaml
         namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
         group: GoldConfig
-
+# 从nacos配置中获取路由，支持动态刷新
+timing:
+  nacos:
+    config:
+      server-addr: nacos.gitcui.cn:8848
+      dataId: gateway-router
+      groupId: GATE_GROUP
+      timeout: 5000
+      namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
 server:
   port: 8041

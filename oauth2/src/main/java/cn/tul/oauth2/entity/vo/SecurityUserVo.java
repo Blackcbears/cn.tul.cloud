@@ -27,7 +27,7 @@ public class SecurityUserVo implements UserDetails {
         this.setPassword(userDTO.getPassword());
         this.setEnabled(userDTO.getStatus() == 1);
         if (userDTO.getRoles() != null) {
-            authorities = new ArrayList<SimpleGrantedAuthority>();
+            authorities = new ArrayList<>();
             userDTO.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
         }
     }
@@ -62,7 +62,7 @@ public class SecurityUserVo implements UserDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        cn.tul.oauth2.entity.vo.UserVo user = (cn.tul.oauth2.entity.vo.UserVo) o;
+        SecurityUserVo user = (SecurityUserVo) o;
         return Objects.equals(password, user.getPassword());
     }
 
@@ -90,7 +90,7 @@ public class SecurityUserVo implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<SimpleGrantedAuthority>();
+        return  this.authorities;
     }
 
     @Override

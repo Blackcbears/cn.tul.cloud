@@ -1,0 +1,27 @@
+
+server:
+  port: 9401
+spring:
+  profiles:
+    active: dev
+  application:
+    name: tul-oauth2-auth
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.gitcui.cn:8848
+        group: GoldConfig
+        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
+      config:
+        prefix: oath2
+        server-addr: nacos.gitcui.cn:8848
+        file-extension: yaml
+        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
+        group: GoldConfig
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
