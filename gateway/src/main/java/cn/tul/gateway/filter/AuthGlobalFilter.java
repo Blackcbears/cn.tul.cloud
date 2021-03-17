@@ -1,6 +1,7 @@
 package cn.tul.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
+import cn.tul.gateway.constant.AuthorizationConsts;
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -25,15 +26,17 @@ import java.text.ParseException;
 @Slf4j
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
+
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String token = exchange.getRequest().getHeaders().getFirst("Authorization");
+        String token = exchange.getRequest().getHeaders().getFirst(AuthorizationConsts.AUTHORIZATION);
         if (StrUtil.isEmpty(token)) {
             return chain.filter(exchange);
         }
         try {
             //从token中解析用户信息并设置到Header中去
-            String realToken = token.replace("Bearer ", "");
+            String realToken = token.replace(AuthorizationConsts.BEARER, "");
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             log.info("AuthGlobalFilter.filter() user:{}",userStr);

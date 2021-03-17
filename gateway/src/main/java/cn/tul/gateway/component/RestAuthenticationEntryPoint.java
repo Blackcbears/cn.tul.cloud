@@ -14,6 +14,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * <br>
  自定义返回结果：没有登录或token过期时
@@ -23,13 +25,15 @@ import java.nio.charset.Charset;
  */
 @Component
 public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPoint {
+
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException e) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         String body= JSONUtil.toJsonStr(Tip.unauthorized(e.getMessage()));
-        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(
+                StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }
 }

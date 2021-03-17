@@ -1,6 +1,7 @@
 package cn.tul.gateway.filter;
 
 import cn.tul.gateway.config.IgnoreUrlsConfig;
+import cn.tul.gateway.constant.AuthorizationConsts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         List<String> ignoreUrls = ignoreUrlsConfig.getUrls();
         for (String ignoreUrl : ignoreUrls) {
             if (pathMatcher.match(ignoreUrl, uri.getPath())) {
-                request = exchange.getRequest().mutate().header("Authorization", "").build();
+                request = exchange.getRequest().mutate().header(AuthorizationConsts.AUTHORIZATION, "").build();
                 exchange = exchange.mutate().request(request).build();
                 return chain.filter(exchange);
             }

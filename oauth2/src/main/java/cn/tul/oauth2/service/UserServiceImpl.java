@@ -2,8 +2,8 @@ package cn.tul.oauth2.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.tul.common.enums.BizExceptionEnum;
-import cn.tul.oauth2.entity.vo.SecurityUserVo;
-import cn.tul.oauth2.entity.vo.UserVo;
+import cn.tul.oauth2.web.vo.SecurityUserVo;
+import cn.tul.oauth2.web.vo.UserVo;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -50,11 +50,14 @@ public class UserServiceImpl implements UserDetailsService {
         SecurityUserVo securityUser = new SecurityUserVo(findUserList.get(0));
         if (!securityUser.isEnabled()) {
             throw new DisabledException(BizExceptionEnum.ACCOUNT_DISABLED.toString());
-        } else if (!securityUser.isAccountNonLocked()) {
+        }
+        if (!securityUser.isAccountNonLocked()) {
             throw new LockedException(BizExceptionEnum.ACCOUNT_LOCKED.toString());
-        } else if (!securityUser.isAccountNonExpired()) {
+        }
+        if (!securityUser.isAccountNonExpired()) {
             throw new AccountExpiredException(BizExceptionEnum.ACCOUNT_EXPIRED.toString());
-        } else if (!securityUser.isCredentialsNonExpired()) {
+        }
+        if (!securityUser.isCredentialsNonExpired()) {
             throw new CredentialsExpiredException(BizExceptionEnum.CREDENTIALS_EXPIRED.toString());
         }
         return securityUser;

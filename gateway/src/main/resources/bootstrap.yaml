@@ -4,7 +4,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: 'http://localhost:9401/rsa/publicKey' #配置RSA的公钥访问地址
+          jwk-set-uri: 'http://localhost:9401/rsa/public_key' #配置RSA的公钥访问地址
   redis:
     database: 0
     port: 6379
@@ -19,12 +19,10 @@ spring:
       discovery:
         server-addr: nacos.gitcui.cn:8848
         group: GoldConfig
-        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
       config:
         prefix: Gateway
         server-addr: nacos.gitcui.cn:8848
         file-extension: yaml
-        namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
         group: GoldConfig
 # 从nacos配置中获取路由，支持动态刷新
 timing:
@@ -34,6 +32,5 @@ timing:
       dataId: gateway-router
       groupId: GATE_GROUP
       timeout: 5000
-      namespace: e0626648-6847-4fc0-9986-89bcb1bdadae
 server:
   port: 8041

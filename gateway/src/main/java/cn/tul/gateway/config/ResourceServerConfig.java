@@ -6,10 +6,13 @@ import cn.tul.gateway.authorization.AuthorizationManager;
 import cn.tul.gateway.component.RestAuthenticationEntryPoint;
 import cn.tul.gateway.component.RestfulAccessDeniedHandler;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -18,6 +21,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
+
+import javax.annotation.Resource;
 
 /**
  * <br>
@@ -31,7 +36,9 @@ import reactor.core.publisher.Mono;
 @EnableWebFluxSecurity
 public class ResourceServerConfig {
     private final AuthorizationManager authorizationManager;
+
     private final IgnoreUrlsConfig ignoreUrlsConfig;
+
     private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
@@ -39,17 +46,19 @@ public class ResourceServerConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
-        http.authorizeExchange()
-                // 白名单配置
-                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()
+        ServerHttpSecurity.AuthorizeExchangeSpec registry = http
+                .authorizeExchange();
+        //不需要保护的资源路径允许访问
+        if (!ignoreUrlsConfig.getUrls().isEmpty()) {
+            registry.pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll();
+        }
                 // 鉴权管理器配置
-                .anyExchange().access(authorizationManager)
+        registry.anyExchange().access(authorizationManager)
                 .and().exceptionHandling()
                 // 处理未授权
                 .accessDeniedHandler(restfulAccessDeniedHandler)
                 // 处理未认证
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-                .and().csrf().disable();
+                .authenticationEntryPoint(restAuthenticationEntryPoint);
         return http.build();
     }
 

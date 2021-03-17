@@ -66,6 +66,12 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
 
     }
 
+    /**
+     * 批量更新
+     * @param list
+     * {@link RouteDefinition}
+     * @return
+     */
     public String updateBatch(List<RouteDefinition> list) {
         if (CollectionUtils.isEmpty(list)) {
             return "success";

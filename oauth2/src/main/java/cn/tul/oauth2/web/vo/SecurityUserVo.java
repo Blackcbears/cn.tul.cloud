@@ -1,4 +1,4 @@
-package cn.tul.oauth2.entity.vo;
+package cn.tul.oauth2.web.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

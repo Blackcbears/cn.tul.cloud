@@ -1,0 +1,17 @@
+secure:
+  ignored:
+    urls: dewdasfasd
+  ignore:
+    urls:
+spring:
+  datasource:
+    druid: #德鲁伊配置
+      stat-view-servlet:
+        enabled: true
+        loginUsername: root
+        loginPassword: CUI867259jing.
+    url: jdbc:mysql://localhost:3306/mytest?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: sa
+    password: 6655tul816
+    driver-class-name: com.mysql.cj.jdbc.Driver

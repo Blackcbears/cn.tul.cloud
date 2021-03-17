@@ -2,12 +2,12 @@ package cn.tul.gateway.constant;
 
 /**
  * <br>
- *
+ * Nacos 常量类
  * @author cuijing
- * @className AuthConstant
+ * @className AuthConsts
  * @date 2021-03-15 02:08
  */
-public class NacosConstant {
+public class NacosConsts {
 
     public static final String NAMESPACE = "namespace";
 

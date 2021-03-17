@@ -1,6 +1,6 @@
 package cn.tul.oauth2.security;
 
-import cn.tul.oauth2.entity.vo.SecurityUserVo;
+import cn.tul.oauth2.web.vo.SecurityUserVo;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -19,11 +19,16 @@ import java.util.Map;
  */
 @Component
 public class JwtTokenEnhancer implements TokenEnhancer {
+    /**
+     * 设置JWT token中的信息
+     * @param accessToken 鉴权token
+     * @param authentication 当前登录人缓存
+     * @return 包装以后的登陆信息
+     */
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         SecurityUserVo securityUser = (SecurityUserVo) authentication.getPrincipal();
-        Map<String, Object> info = new HashMap<>();
-        //把用户ID设置到JWT中
+        Map<String, Object> info = new HashMap<>(2);
         info.put("id", securityUser.getId());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;

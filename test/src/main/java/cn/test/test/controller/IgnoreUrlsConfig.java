@@ -1,4 +1,4 @@
-package cn.tul.gateway.config;
+package cn.test.test.controller;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +15,16 @@ import java.util.List;
  * @className IgnoreUrlsConfig
  * @date 2021-03-15 02:12
  */
-@Getter
-@Setter
 @Component
-@ConfigurationProperties(prefix="secure.ignored")
+@ConfigurationProperties(prefix="secure.ignore")
 public class IgnoreUrlsConfig {
-    private List<String> urls = new ArrayList<>();
+    private String urls = "";
+
+    public String getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
 }

@@ -153,7 +153,7 @@ public class Tip<T> {
     }
 
     public boolean isSuccess() {
-        return this.code == 200;
+        return this.success;
     }
 
     public int getCode() {

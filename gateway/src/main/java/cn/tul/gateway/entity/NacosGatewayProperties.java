@@ -2,6 +2,7 @@ package cn.tul.gateway.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * <br>
@@ -11,10 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021-03-15 22:42
  */
 @ConfigurationProperties(prefix = "timing.nacos.config")
-@Configuration
+@Component
 public class NacosGatewayProperties {
-
-
     private String serverAddr;
 
     private String dataId;

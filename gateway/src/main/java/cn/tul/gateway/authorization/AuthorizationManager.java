@@ -4,7 +4,6 @@ import cn.hutool.core.convert.Convert;
 
 import cn.tul.common.constant.AuthConstant;
 import cn.tul.common.constant.RedisConstant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;

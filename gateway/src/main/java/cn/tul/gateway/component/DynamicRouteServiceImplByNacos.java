@@ -1,6 +1,7 @@
 package cn.tul.gateway.component;
 
-import cn.tul.gateway.constant.NacosConstant;
+import cn.tul.gateway.config.IgnoreUrlsConfig;
+import cn.tul.gateway.constant.NacosConsts;
 import cn.tul.gateway.entity.NacosGatewayProperties;
 import cn.tul.gateway.service.DynamicRouteServiceImpl;
 import com.alibaba.fastjson.JSON;
@@ -13,6 +14,7 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
@@ -30,6 +32,7 @@ public class DynamicRouteServiceImplByNacos implements CommandLineRunner {
 
     private final NacosGatewayProperties nacosGatewayProperties;
 
+
     public DynamicRouteServiceImplByNacos(DynamicRouteServiceImpl dynamicRouteService, NacosGatewayProperties nacosGatewayProperties) {
         this.dynamicRouteService = dynamicRouteService;
         this.nacosGatewayProperties = nacosGatewayProperties;
@@ -40,15 +43,14 @@ public class DynamicRouteServiceImplByNacos implements CommandLineRunner {
      */
     public void dynamicRouteByNacosListener() {
         try {
-
             Properties properties = new Properties();
-            properties.put(NacosConstant.NAMESPACE, nacosGatewayProperties.getNamespace());
-            properties.put(NacosConstant.SERVER_ADDR, nacosGatewayProperties.getServerAddr());
+            if(nacosGatewayProperties.getNamespace() != null){
+                properties.put(NacosConsts.NAMESPACE, nacosGatewayProperties.getNamespace());
+            }
+            properties.put(NacosConsts.SERVER_ADDR, nacosGatewayProperties.getServerAddr());
             ConfigService configService = NacosFactory.createConfigService(properties);
             String content = configService.getConfig(nacosGatewayProperties.getDataId(), nacosGatewayProperties.getGroupId(),
                     nacosGatewayProperties.getTimeout());
-
-            System.out.println(content);
             List<RouteDefinition> list = JSON.parseArray(content, RouteDefinition.class);
             if (!CollectionUtils.isEmpty(list)) {
                 dynamicRouteService.updateBatch(list);
